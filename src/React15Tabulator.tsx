@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { pickHTMLProps } from 'pick-react-known-prop';
-import { IProps, propsToOptions } from './ConfigUtils';
+import { IProps } from './ConfigTypings';
 import { isSameArray } from './Utils';
 
 /* tslint:disable-next-line */
@@ -25,11 +25,10 @@ export default class extends React.Component<IProps, Partial<IState>> {
     const domEle: any = ReactDOM.findDOMNode(this.ref); // mounted DOM element
     const that = this;
     const { columns, data, options } = this.props;
-    const propOptions = propsToOptions(this.props);
 
     new Tabulator(domEle, {
       columns,
-      ...propOptions,
+      ...this.props,
       layout: 'fitColumns', // fit columns to width of table (optional)
       tableBuilding() {
         that.table = this; // keep table instance
